@@ -36,7 +36,7 @@ public class EndpointClient {
         }
     }
 
-    private HttpResponse connect(String cardPrefix, String cardNumber, boolean retryIfUnsuccessful) throws Exception {
+    private HttpResponse connect(String cardPrefix, String cardNumber, boolean retryIfUnsuccessful) throws IOException, UnsuccessfulRequestException {
         EndpointConnector connector = new EndpointConnector(viewState, cardPrefix, cardNumber);
 
         try {
@@ -58,7 +58,7 @@ public class EndpointClient {
         );
     }
 
-    public HttpResponse connect(String cardPrefix, String cardNumber) throws Exception {
+    public HttpResponse connect(String cardPrefix, String cardNumber) throws IOException, UnsuccessfulRequestException {
         return connect(
                 cardPrefix,
                 cardNumber,

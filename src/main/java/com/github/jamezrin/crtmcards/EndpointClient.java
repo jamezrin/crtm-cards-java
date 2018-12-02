@@ -24,7 +24,11 @@ public class EndpointClient {
     private String viewState = null;
 
     public EndpointClient() {
-        this(makeHttpClient(20000));
+        this(10 * 1000);
+    }
+
+    public EndpointClient(int timeout) {
+        this(makeHttpClient(timeout));
     }
 
     public EndpointClient(CloseableHttpClient httpClient) {

@@ -1,18 +1,19 @@
 package com.github.jamezrin.crtmcards;
 
 import com.github.jamezrin.crtmcards.exceptions.UnsuccessfulRequestException;
+import com.github.jamezrin.crtmcards.security.AdditionalSubjectHostnameVerifier;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import javax.net.ssl.HostnameVerifier;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -103,9 +104,11 @@ public class EndpointClient {
                 .setSocketTimeout(timeout)
                 .setConnectionRequestTimeout(timeout)
                 .build();
+        HostnameVerifier hostnameVerifier = new AdditionalSubjectHostnameVerifier(
+                CRTM_BASE_DOMAIN);
         return HttpClients.custom()
                 .setDefaultRequestConfig(requestConfig)
-                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+                .setSSLHostnameVerifier(hostnameVerifier)
                 .setUserAgent(CRTM_USER_AGENT)
                 .build();
     }

@@ -3,10 +3,10 @@ package com.github.jamezrin.crtmcards.types;
 import java.time.LocalDate;
 
 public class CardRenewal {
-    private final LocalDate rechargeDate;
-    private final LocalDate validityStartDate;
-    private final LocalDate firstUseDate;
-    private final LocalDate expirationDate;
+    private LocalDate rechargeDate;
+    private LocalDate validityStartDate;
+    private LocalDate firstUseDate;
+    private LocalDate expirationDate;
 
     public CardRenewal(LocalDate rechargeDate, LocalDate validityStartDate, LocalDate firstUseDate, LocalDate expirationDate) {
         this.rechargeDate = rechargeDate;
@@ -19,16 +19,32 @@ public class CardRenewal {
         return rechargeDate;
     }
 
+    public void setRechargeDate(LocalDate rechargeDate) {
+        this.rechargeDate = rechargeDate;
+    }
+
     public LocalDate getValidityStartDate() {
         return validityStartDate;
+    }
+
+    public void setValidityStartDate(LocalDate validityStartDate) {
+        this.validityStartDate = validityStartDate;
     }
 
     public LocalDate getFirstUseDate() {
         return firstUseDate;
     }
 
+    public void setFirstUseDate(LocalDate firstUseDate) {
+        this.firstUseDate = firstUseDate;
+    }
+
     public LocalDate getExpirationDate() {
         return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     @Override

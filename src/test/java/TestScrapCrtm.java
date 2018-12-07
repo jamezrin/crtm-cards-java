@@ -3,7 +3,7 @@ import com.github.jamezrin.crtmcards.ResponseParser;
 import com.github.jamezrin.crtmcards.exceptions.CurrentlyUnavailableException;
 import com.github.jamezrin.crtmcards.exceptions.InactiveCardNumberException;
 import com.github.jamezrin.crtmcards.exceptions.InvalidCardNumberException;
-import com.github.jamezrin.crtmcards.types.CrtmCard;
+import com.github.jamezrin.crtmcards.types.Card;
 import org.apache.http.HttpResponse;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public class TestScrapCrtm {
             );
 
             ResponseParser parser = new ResponseParser(response);
-            CrtmCard card = parser.parse();
+            Card card = parser.parse();
 
             assertNotNull(card);
         } catch (CurrentlyUnavailableException | SocketTimeoutException e) {

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.jamezrin</groupId>
-    <artifactId>crtmcards</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <artifactId>crtm-cards-java</artifactId>
+    <version>1.1.2-SNAPSHOT</version>
     <name>crtm-cards-java</name>
 
     <dependencies>

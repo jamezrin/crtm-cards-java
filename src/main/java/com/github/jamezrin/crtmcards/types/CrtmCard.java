@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.EnumMap;
 
-public class Card {
+public class CrtmCard {
     private String fullNum;
     private String title;
     private CardType type;
@@ -12,9 +12,9 @@ public class Card {
     private LocalDate expirationDate;
     private EnumMap<CardType, LocalDate> profiles;
 
-    public Card() { }
+    public CrtmCard() { }
 
-    public Card(String fullNum, String title, CardType type, CardRenewal[] renewals, LocalDate expirationDate, EnumMap<CardType, LocalDate> profiles) {
+    public CrtmCard(String fullNum, String title, CardType type, CardRenewal[] renewals, LocalDate expirationDate, EnumMap<CardType, LocalDate> profiles) {
         this.fullNum = fullNum;
         this.title = title;
         this.type = type;
@@ -73,7 +73,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
+        return "CrtmCard{" +
                 "fullNum='" + fullNum + '\'' +
                 ", title='" + title + '\'' +
                 ", type=" + type +

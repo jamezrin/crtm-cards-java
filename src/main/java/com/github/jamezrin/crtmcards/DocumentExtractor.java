@@ -1,6 +1,6 @@
 package com.github.jamezrin.crtmcards;
 
-import com.github.jamezrin.crtmcards.types.Card;
+import com.github.jamezrin.crtmcards.types.CrtmCard;
 import com.github.jamezrin.crtmcards.types.CardRenewal;
 import com.github.jamezrin.crtmcards.types.CardType;
 import org.jsoup.nodes.Document;
@@ -21,7 +21,7 @@ public class DocumentExtractor {
     public static final Pattern PROFILE_DATE_PATTERN = Pattern.compile("^Perfil (?<type>[\\s\\S]+) caduca: (?<date>[0-9]{2}-[0-9]{2}-[0-9]{4})$");
     public static final Pattern PROFILE_LINE_PATTERN = Pattern.compile("<br>(\\s+)?");
 
-    public static Card processCard(Document document) {
+    public static CrtmCard processCard(Document document) {
         // Full card number
         Element fullNumEl = document.getElementById("ctl00_cntPh_lblNumeroTarjeta");
 
@@ -30,13 +30,13 @@ public class DocumentExtractor {
         Element resultRowEl = resultsTableEl.getElementsByTag("td").get(1);
         Elements resultsEls = resultRowEl.getElementsByTag("span");
 
-        // Card expiration date
+        // CrtmCard expiration date
         Element expirationEl = document.getElementById("ctl00_cntPh_lblFechaCaducidadTarjeta");
 
-        // Card relevant profiles w/ exp. dates
+        // CrtmCard relevant profiles w/ exp. dates
         Element profilesEl = document.getElementById("ctl00_cntPh_lblInfoDatosDeLaTarjeta");
 
-        return new Card(
+        return new CrtmCard(
                 fullNumEl.text(),
                 resultsEls.get(0).text(),
                 CardType.fromId(resultsEls.get(1).text()),

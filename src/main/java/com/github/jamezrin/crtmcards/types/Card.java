@@ -12,6 +12,8 @@ public class Card {
     private LocalDate expirationDate;
     private EnumMap<CardType, LocalDate> profiles;
 
+    public Card() { }
+
     public Card(String fullNum, String title, CardType type, CardRenewal[] renewals, LocalDate expirationDate, EnumMap<CardType, LocalDate> profiles) {
         this.fullNum = fullNum;
         this.title = title;

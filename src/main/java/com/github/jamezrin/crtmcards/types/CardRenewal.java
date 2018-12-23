@@ -8,6 +8,8 @@ public class CardRenewal {
     private LocalDate firstUseDate;
     private LocalDate expirationDate;
 
+    public CardRenewal() { }
+
     public CardRenewal(LocalDate rechargeDate, LocalDate validityStartDate, LocalDate firstUseDate, LocalDate expirationDate) {
         this.rechargeDate = rechargeDate;
         this.validityStartDate = validityStartDate;

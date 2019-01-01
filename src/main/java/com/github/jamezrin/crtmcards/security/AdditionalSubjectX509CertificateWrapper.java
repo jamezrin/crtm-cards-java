@@ -1,5 +1,7 @@
 package com.github.jamezrin.crtmcards.security;
 
+import sun.security.x509.EDIPartyName;
+
 import javax.security.auth.x500.X500Principal;
 import java.math.BigInteger;
 import java.security.*;
@@ -36,7 +38,7 @@ public class AdditionalSubjectX509CertificateWrapper extends X509Certificate {
         List<List<?>> result = new ArrayList<>(subjectAltNames);
 
         for (String additionalSubjectAlt : additionalSubjectAlts) {
-            result.add(Arrays.asList(2, additionalSubjectAlt));
+            result.add(Arrays.asList(EDIPartyName.NAME_DNS, additionalSubjectAlt));
         }
 
         return Collections.unmodifiableCollection(result);

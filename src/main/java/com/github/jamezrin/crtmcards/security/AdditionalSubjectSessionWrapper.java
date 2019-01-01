@@ -10,6 +10,7 @@ import java.security.cert.Certificate;
 public class AdditionalSubjectSessionWrapper implements SSLSession {
     private final SSLSession wrappedSession;
     private final String[] additionalSubjectAlts;
+    private Certificate[] wrappedPeerCertificates;
 
     public AdditionalSubjectSessionWrapper(SSLSession wrappedSession, String[] additionalSubjectAlts) {
         this.wrappedSession = wrappedSession;
@@ -68,20 +69,22 @@ public class AdditionalSubjectSessionWrapper implements SSLSession {
 
     @Override
     public Certificate[] getPeerCertificates() throws SSLPeerUnverifiedException {
-        Certificate[] certificates = wrappedSession.getPeerCertificates();
-        Certificate[] results = new Certificate[certificates.length];
+        if (wrappedPeerCertificates == null) {
+            Certificate[] certificates = wrappedSession.getPeerCertificates();
+            wrappedPeerCertificates = new Certificate[certificates.length];
 
-        for (int i = 0; i < certificates.length; i++) {
-            Certificate certificate = certificates[i];
-            if (certificate instanceof java.security.cert.X509Certificate) {
-                java.security.cert.X509Certificate x509cert = (java.security.cert.X509Certificate) certificate;
-                results[i] = new AdditionalSubjectX509CertificateWrapper(x509cert, additionalSubjectAlts);
-            } else {
-                results[i] = certificate;
+            for (int i = 0; i < certificates.length; i++) {
+                Certificate certificate = certificates[i];
+                if (certificate instanceof java.security.cert.X509Certificate) {
+                    java.security.cert.X509Certificate x509cert = (java.security.cert.X509Certificate) certificate;
+                    wrappedPeerCertificates[i] = new AdditionalSubjectX509CertificateWrapper(x509cert, additionalSubjectAlts);
+                } else {
+                    wrappedPeerCertificates[i] = certificate;
+                }
             }
-         }
+        }
 
-        return results;
+        return wrappedPeerCertificates;
     }
 
     @Override

@@ -6,7 +6,7 @@
 
     <groupId>com.github.jamezrin</groupId>
     <artifactId>crtm-cards-java</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <name>crtm-cards-java</name>
 
     <dependencies>

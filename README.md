@@ -22,7 +22,7 @@ Paso 2. Añade esta librería dentro de `dependencies` de tu archivo `pom.xml`
 <dependency>
     <groupId>com.github.jamezrin</groupId>
     <artifactId>crtm-cards-java</artifactId>
-    <version>v1.1.1</version>
+    <version>v1.2</version>
 </dependency>
 ```
 

@@ -1,20 +1,20 @@
 package com.github.jamezrin.crtmcards.types;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 
 public class CrtmCard {
     private String fullNum;
     private String title;
     private CardType type;
-    private CardRenewal[] renewals;
+    private List<CardRenewal> renewals;
     private LocalDate expirationDate;
     private EnumMap<CardType, LocalDate> profiles;
 
     public CrtmCard() { }
 
-    public CrtmCard(String fullNum, String title, CardType type, CardRenewal[] renewals, LocalDate expirationDate, EnumMap<CardType, LocalDate> profiles) {
+    public CrtmCard(String fullNum, String title, CardType type, List<CardRenewal> renewals, LocalDate expirationDate, EnumMap<CardType, LocalDate> profiles) {
         this.fullNum = fullNum;
         this.title = title;
         this.type = type;
@@ -47,11 +47,11 @@ public class CrtmCard {
         this.type = type;
     }
 
-    public CardRenewal[] getRenewals() {
+    public List<CardRenewal>  getRenewals() {
         return renewals;
     }
 
-    public void setRenewals(CardRenewal[] renewals) {
+    public void setRenewals(List<CardRenewal>  renewals) {
         this.renewals = renewals;
     }
 
@@ -77,7 +77,7 @@ public class CrtmCard {
                 "fullNum='" + fullNum + '\'' +
                 ", title='" + title + '\'' +
                 ", type=" + type +
-                ", renewals=" + Arrays.toString(renewals) +
+                ", renewals=" + renewals +
                 ", expirationDate=" + expirationDate +
                 ", profiles=" + profiles +
                 '}';

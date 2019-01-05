@@ -1,5 +1,6 @@
 package com.github.jamezrin.crtmcards;
 
+import com.github.jamezrin.crtmcards.exceptions.ScraperException;
 import com.github.jamezrin.crtmcards.types.CrtmCard;
 import com.github.jamezrin.crtmcards.types.CardRenewal;
 import com.github.jamezrin.crtmcards.types.CardType;
@@ -9,9 +10,7 @@ import org.jsoup.select.Elements;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +20,7 @@ public class DocumentExtractor {
     public static final Pattern PROFILE_DATE_PATTERN = Pattern.compile("^Perfil (?<type>[\\s\\S]+) caduca: (?<date>[0-9]{2}-[0-9]{2}-[0-9]{4})$");
     public static final Pattern PROFILE_LINE_PATTERN = Pattern.compile("<br>(\\s+)?");
 
-    public static CrtmCard processCard(Document document) {
+    public static CrtmCard processCard(Document document) throws ScraperException {
         // Full card number
         Element fullNumEl = document.getElementById("ctl00_cntPh_lblNumeroTarjeta");
 
@@ -40,15 +39,23 @@ public class DocumentExtractor {
                 fullNumEl.text(),
                 resultsEls.get(0).text(),
                 CardType.fromId(resultsEls.get(1).text()),
-
-                new CardRenewal[]{
-                        resultsEls.size() > 2 ? extractRenewal(resultsEls.subList(2, 6)) : null,
-                        resultsEls.size() > 6 ? extractRenewal(resultsEls.subList(6, 10)) : null
-                },
-
+                extractRenewals(resultsEls.subList(2, resultsEls.size())),
                 extractSimpleDate(expirationEl.text()),
                 extractProfiles(profilesEl.html())
         );
+    }
+
+    public static List<CardRenewal> extractRenewals(List<Element> list) throws ScraperException {
+        if (list.size() % 4 != 0)
+            throw new ScraperException("renewals list is not multiple of 4");
+
+        List<CardRenewal> result = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i += 4) {
+            result.add(extractRenewal(list.subList(i, i + 4)));
+        }
+
+        return result;
     }
 
     public static CardRenewal extractRenewal(List<Element> list) {

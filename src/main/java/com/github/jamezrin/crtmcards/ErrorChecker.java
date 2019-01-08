@@ -22,6 +22,7 @@ public class ErrorChecker {
             if (!content.isEmpty()) {
                 switch (content) {
                     case "POR FAVOR, INTRODUZCA DE NUEVO SU TARJETA": // get these strings in the exceptions or map
+                    case "DISCULPE LA MOLESTIAS. NO TENEMOS RESULTADOS PARA SUS PARAMETROS DE BUSQUEDA":
                         throw new NotExistentCardNumberException(content);
                     case "TARJETA NO ACTIVA":
                         throw new InactiveCardNumberException(content);
